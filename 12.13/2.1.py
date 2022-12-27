@@ -1,8 +1,8 @@
-import random
+from random import choice
 
 
 class FilmCard:
-# Формируется базовый класс фильма
+    """Формируется базовый класс фильма."""
     def __init__(self, genre: str, title: str, year: int):
         self.genre = genre
         self.title = title
@@ -15,7 +15,7 @@ class FilmCard:
 
 
 class FilmCardMaker(FilmCard):
-# Дочерний класс формирует базовый класс фильма и дополняет его
+    """Дочерний класс формирует базовый класс фильма и дополняет его."""
     def __init__(self, genre, title, year):
         super().__init__(genre, title, year)
         self.director = str
@@ -27,12 +27,12 @@ class FilmCardMaker(FilmCard):
         self.director = d
         return self
 
-    def add_actors(self, *actor):
-        self.actors += actor
+    def add_actors(self, *actors):
+        self.actors += actors
         return self
     
     def add_certificate(self):
-        self.certificate = f'+{str(random.choice([0, 12, 18]))}'
+        self.certificate = f'+{str(choice([0, 12, 18]))}'
         return self
     
     def add_country(self, c: str):
@@ -48,25 +48,26 @@ class FilmCardMaker(FilmCard):
     def maker(self):
         return f'{self}{self.__str()}'
 
+
 film = FilmCardMaker('драма', 'Война и Мир', 1965)
 factory = film.add_director('Бондарчук')
-factory .add_certificate()
-factory .add_actors('Тихонов', 'Бондарчук')
-factory .add_country('Россия')
+factory.add_certificate()
+factory.add_actors('Тихонов', 'Бондарчук')
+factory.add_country('Россия')
 filmcard2 = factory.maker()
 
 film2 = FilmCardMaker('Ужасы', 'Чужой', 1979)
-factory = film2.add_director('Ридли Скотт')
-factory .add_certificate()
-factory .add_actors('Сигурни Уивер')
-factory .add_country('США')
+factory = film2.add_director('Риддли Скотт')
+factory.add_certificate()
+factory.add_actors('Сигурни Уивер')
+factory.add_country('США')
 filmcard = factory.maker()
 
 film3 = FilmCardMaker('Ужасы', 'Нечто', 1982)
 factory = film3.add_director('Джон Карпентер')
-factory .add_certificate()
-factory .add_actors('Курт Рассел')
-factory .add_country('США')
+factory.add_certificate()
+factory.add_actors('Курт Рассел')
+factory.add_country('США')
 filmcard3 = factory.maker()
 
 print(filmcard)
@@ -75,7 +76,8 @@ print(filmcard2)
 print()
 print(filmcard3)
 
-# Результат:
+
+# stdout:
 
 # Название: Чужой
 # Год выпуска: 1979
@@ -100,3 +102,4 @@ print(filmcard3)
 # Режиссер: Джон Карпентер
 # Актеры: ['Курт Рассел']
 # Рейтинг: +12
+

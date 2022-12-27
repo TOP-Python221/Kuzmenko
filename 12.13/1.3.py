@@ -1,7 +1,5 @@
+"""Моя ДЭ на основе уже реализованной на уроке формы HTML элемента и строителя элементов."""
 
-"""Моя ДЭ на основе уже реализованной на уроке формы HTML элемента и строителя элементов"""
-
-"""Демонстратор строителя."""
 
 class HTMLTag:
     """
@@ -38,18 +36,17 @@ class HTMLTag:
 
     def __str(self, indent_level: int) -> str:
         """Рекурсивно формирует строку с текущим и всеми вложенными тегами. Немного измененный под данную ДЗ"""
-        margin = ' ' * indent_level * self.default_indent_spaces
+        margin = ' '*indent_level * self.default_indent_spaces
         eol = ''
         result = f"{margin}<{self.name}>{self.value}"
         if self.__nested:
             for tag in self.__nested:
-                result += '\n' + tag.__str(indent_level + 1)
+                result += '\n' + tag.__str(indent_level+1)
             eol = f'\n{margin}'
         result += f"{eol}</{self.name}>"
         if self.__rollback:
             for tag in self.__rollback:
                 result += '\n' + tag.__str(indent_level)
-
         return result
 
     def __str__(self):
@@ -120,27 +117,31 @@ class CVBuilder:
         return self
 
     def build(self) -> HTMLTag:
-        """Cтроит текст тегов в зависимости от того есть ли необязательные разделы."""
+        """Строит текст тегов в зависимости от того есть ли необязательные разделы."""
         res = HTMLTag.create('html')
-        s = res.nested('head').sibling('title', f'{self.full_name}: портфолио')\
-               .nested_2('body').nested('div').nested('h2', 'Обо мне')\
+        s = res.nested('head')\
+               .sibling('title', f'{self.full_name}: портфолио')\
+               .nested_2('body')\
+               .nested('div')\
+               .nested('h2', 'Обо мне')\
                .nested_2('p', f'Мне {self.age} года/лет я {self.profession}, мой email: {self.email}')
         if self.add_educations:
-            s.nested_2('h2', 'Образование:').nested_2('p', f'{self.add_educations}')
+            s.nested_2('h2', 'Образование:')\
+             .nested_2('p', f'{self.add_educations}')
         if self.add_projects:
-            s.nested_2('h2', 'Мои проекты:').nested_2('p', f'{self.add_projects}')
+            s.nested_2('h2', 'Мои проекты:')\
+             .nested_2('p', f'{self.add_projects}')
         if self.add_contacts:
-            s.nested_2('h2', 'Мои контакты:').nested_2('p', f'{self.add_contacts}')
+            s.nested_2('h2', 'Мои контакты:')\
+             .nested_2('p', f'{self.add_contacts}')
 
         total = res.build()
-
         return total
+
 
 cv1 = CVBuilder('Иванов Иван Иванович', "26", 'художник-фрилансер', 'ivv@abc.de')\
     .add_education('Д/сад', 'Средняя школа')\
     .add_project('Проект-1', 'Проект-2')\
     .add_contact(telegram='адрес')
 print(cv1.build())
-
-
 

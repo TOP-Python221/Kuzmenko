@@ -1,8 +1,4 @@
-
-
-"""Доработанный модуль builder1 класса HTML элемента и строителя
-   с возможность добавления для каждого элемента (тега) произвольного количества атрибутов с именем и значением.
-    Используется в качестве параметров соответствующих методов произвольный словарь аргументов **kwargs"""
+"""Доработанный модуль builder1 класса HTML элемента и строителя с возможность добавления для каждого элемента (тега) произвольного количества атрибутов с именем и значением. Используется в качестве параметров соответствующих методов произвольный словарь аргументов **kwargs."""
 
 
 class HTMLTag:
@@ -22,7 +18,6 @@ class HTMLTag:
             r.append(f' {k}: "{v}"')
         self.res = ', '.join(r)
 
-
     @property
     def nested(self):
         """Возвращает неиндексируемый итератор по всем вложенным тегам."""
@@ -35,7 +30,7 @@ class HTMLTag:
 
     def __str(self, indent_level: int) -> str:
         """Рекурсивно формирует строку с текущим и всеми вложенными тегами и их атрибутами."""
-        margin = ' ' * indent_level * self.default_indent_spaces
+        margin = ' '*indent_level * self.default_indent_spaces
         eol = ''
         result = f"{margin}<{self.name}{self.res}>{self.value}"
         if self.__nested:
@@ -68,7 +63,6 @@ class HTMLBuilder:
 
     def nested(self, name: str, value: str = '', **kwargs) -> 'HTMLBuilder':
         """Добавляет вложенный тег к текущему тегу и возвращает строитель для вложенного тега."""
-
         tag = HTMLTag(name, value, **kwargs)
         self.root.nested = tag
         return HTMLBuilder(tag)
@@ -83,7 +77,6 @@ class HTMLBuilder:
         return self.root
 
 
-
 root = HTMLTag.create('div', link='', href='https://journal.top-academy.ru/')
 root.sibling('p', 'Menu', link='', href='https://journal.top-academy.ru/')\
     .nested('ul', link='')\
@@ -92,3 +85,4 @@ root.sibling('p', 'Menu', link='', href='https://journal.top-academy.ru/')\
     .sibling('li', 'View')
 div = root.build()
 print(div)
+

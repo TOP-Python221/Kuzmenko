@@ -1,6 +1,3 @@
-
-"""Шаблон Строитель для формирования текста кода класса с конструктором или без"""
-
 class Options:
     """Шаблон Строитель для формирования текста кода класса с конструктором или без"""
     def __init__(self, name: str):
@@ -56,3 +53,4 @@ print(cb)
 print('-'*20)
 cb = ClassBuilder('Person').add_field('name', 'Alan').add_field('age', 24).add_field('sex', 'm')
 print(cb)
+
