@@ -12,11 +12,16 @@ class HTMLTag:
         self.name = name
         self.value = value
         self.__nested: list[HTMLTag] = []
+        # УДАЛИТЬ: параметр kwargs используется только один раз и только в данном методе — нет смысла сохранять в атрибут
         self.arguments = kwargs
         r = []
         for k, v in self.arguments.items():
-            r.append(f' {k}: "{v}"')
+            # ИСПОЛЬЗОВАТЬ: конкатенация списков, хоть и пересоздаёт список, но при этом выполняется быстрее, чем метод append() — поэтому когда нет разницы между изменением и пересозданием объекта, лучше использовать конкатенацию
+            r += [f' {k}: "{v}"']
+        # ИСПРАВИТЬ: с самого начала привыкайте писать осмысленные имена переменных, атрибутов, функций, классов — любые идентификаторы, которые вы вводите в код, должны максимально недвусмысленно своим именем указывать на причину собственного существования — res подходит для имени временной переменной, а не для атрибута
         self.res = ', '.join(r)
+        # ИСПОЛЬЗОВАТЬ: вообще, из-за такой ерунды разводить код на пять строчек — это расточительно
+        self.attributes = ','.join(f' {k}: "{v}"' for k, v in kwargs.items())
 
     @property
     def nested(self):
@@ -32,7 +37,7 @@ class HTMLTag:
         """Рекурсивно формирует строку с текущим и всеми вложенными тегами и их атрибутами."""
         margin = ' '*indent_level * self.default_indent_spaces
         eol = ''
-        result = f"{margin}<{self.name}{self.res}>{self.value}"
+        result = f"{margin}<{self.name}{self.attributes}>{self.value}"
         if self.__nested:
             for tag in self.__nested:
                 result += '\n' + tag.__str(indent_level+1)
@@ -77,6 +82,7 @@ class HTMLBuilder:
         return self.root
 
 
+# ДОБАВИТЬ: многие HTML теги используют атрибут class, а в python это слово является зарезервированным — как с помощью строителя создать экземпляр HTMLTag с атрибутом class?
 root = HTMLTag.create('div', link='', href='https://journal.top-academy.ru/')
 root.sibling('p', 'Menu', link='', href='https://journal.top-academy.ru/')\
     .nested('ul', link='')\
@@ -86,3 +92,8 @@ root.sibling('p', 'Menu', link='', href='https://journal.top-academy.ru/')\
 div = root.build()
 print(div)
 
+
+# ДОБАВИТЬ: закомментированный вывод в результате выполнения
+
+
+# ИТОГ: хорошо — 3/4
