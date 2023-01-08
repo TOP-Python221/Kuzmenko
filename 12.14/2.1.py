@@ -50,8 +50,6 @@ class Military(Plane):
         self.objects: list = []
 
     def display_description(self):
-        if self.__purpose == Passenger():
-            print(f'{self.__name}. {self.__purpose.carry_military(self.objects)}')
         print(f'{self.__name}. {self.__purpose.carry_military(self.objects)}')
 
     def add_objects(self, new_objects: str):
@@ -66,8 +64,6 @@ class Commercial(Plane):
         self.objects: list = []
 
     def display_description(self):
-        if self.__purpose == Passenger():
-            print(f'{self.__name}. {self.__purpose.carry_commercial(self.objects)}')
         print(f'{self.__name}. {self.__purpose.carry_commercial(self.objects)}')
 
     def add_objects(self, new_objects: str):
