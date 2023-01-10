@@ -10,6 +10,7 @@ class TextParser:
 
     def get_processed_text(self, processor) -> None:
         """Вызывает метод класса обработчика.
+
         :param processor: экземпляр класса обработчика
         """
         result = processor.process_text(self.text)
@@ -36,6 +37,7 @@ class WordCounter:
 
 class Adapter:
     """Адаптер, позволяющий парсеру использовать метод(-ы) счётчика."""
+
     def __init__(self, adapt):
         self.adapt = adapt
 
@@ -45,6 +47,7 @@ class Adapter:
         lst = sorted(dct, key=dct.__getitem__)
 
         return reversed(lst)
+
 
 text = """
         Жил на свете Мальчик Петя,
@@ -62,7 +65,8 @@ counter = WordCounter('')
 adapter = Adapter(counter)
 parser.get_processed_text(adapter)
 
-# Результат:
+
+# stdout:
 
 # тётя
 # петя

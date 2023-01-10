@@ -1,8 +1,9 @@
 from abc import ABC, abstractmethod
 
+
 # Passenger & Cargo Carriers
 class Carrier(ABC):
-    "Интерфейс для реализации различный видов перевозчиков"
+    """Интерфейс для реализации различный видов перевозчиков"""
     @abstractmethod
     def carry_military(self, items):
         pass
@@ -14,7 +15,7 @@ class Carrier(ABC):
 
 # Military & Commercial Planes
 class Plane(ABC):
-    "Интерфейс для реализации различный классов самолетов"
+    """Интерфейс для реализации различный классов самолетов"""
     @abstractmethod
     def display_description(self):
         pass
@@ -25,7 +26,7 @@ class Plane(ABC):
 
 
 class Passenger(Carrier):
-    "Класс для реализации коммерческого типа самолета"
+    """Класс для реализации коммерческого типа самолета"""
     def carry_military(self, items: str):
         return f'На борту: {items}. Военная пассажирская перевозка.'
 
@@ -34,7 +35,7 @@ class Passenger(Carrier):
 
 
 class Cargo(Carrier):
-    "Класс для реализации военного/грузового типа самолета"
+    """Класс для реализации военного/грузового типа самолета"""
     def carry_military(self, items: str):
         return f'На борту: {items}. Военный груз.'
 
@@ -43,7 +44,7 @@ class Cargo(Carrier):
 
 
 class Military(Plane):
-    "Класс военного типа самолета"
+    """Класс военного типа самолета"""
     def __init__(self, purpose: Carrier):
         self.__purpose = purpose
         self.__name = 'Военный самолет'
@@ -56,8 +57,9 @@ class Military(Plane):
         self.objects += [new_objects]
         return self
 
+
 class Commercial(Plane):
-    "Класс коммерческого типа самолета"
+    """Класс коммерческого типа самолета"""
     def __init__(self, purpose: Carrier):
         self.__purpose = purpose
         self.__name = 'Коммерческий самолет'
@@ -71,21 +73,25 @@ class Commercial(Plane):
         return self
 
 
+# ИСПРАВИТЬ здесь и далее: в Python для имён переменных принято использовать змеиный_нижний_регистр (snake_lower_case)
 militaryPlane1 = Military(Passenger())
 militaryPlane1.add_objects('Десантники')
+militaryPlane1.display_description()
+
 militaryPlane2 = Military(Cargo())
 militaryPlane2.add_objects('Патроны').add_objects('Гранаты')
+militaryPlane2.display_description()
+
 commercialPlane1 = Commercial(Cargo())
 commercialPlane1.add_objects('Продукты').add_objects('Медикаменты')
+commercialPlane1.display_description()
+
 commercialPlane2 = Commercial(Passenger())
 commercialPlane2.add_objects('Пассажиры')
-
-militaryPlane1.display_description()
-militaryPlane2.display_description()
-commercialPlane1.display_description()
 commercialPlane2.display_description()
 
-# Результат:
+
+# stdout:
 
 # Военный самолет. На борту: ['Десантники']. Военная пассажирская перевозка.
 # Военный самолет. На борту: ['Патроны', 'Гранаты']. Военный груз.
