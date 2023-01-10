@@ -44,6 +44,7 @@ class Adapter:
     def process_text(self, txt):
         self.adapt.__init__(txt)
         dct = self.adapt.get_all_words()
+        # ИСПРАВИТЬ: если класс WordCounter предоставляет нам собственный метод для получения некоего значения, то явно стоит использовать его — например, WordCounter.get_count() работает иначе, чем WordCounter.__words.__getitem__(): не выбрасывает исключений и возвращает ноль в случае обработки несуществующего ключа
         lst = sorted(dct, key=dct.__getitem__)
 
         return reversed(lst)
@@ -90,3 +91,6 @@ parser.get_processed_text(adapter)
 # свете
 # на
 # жил
+
+
+# ИТОГ: очень хорошо — 5/6
