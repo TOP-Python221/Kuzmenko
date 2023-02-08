@@ -52,14 +52,14 @@ group by `Name group`
 -- Вывел названия групп, имеющих рейтинг (средний рейтинг всех студентов группы) меньше, чем минимальный средний рейтинг групп 6-го курса.
 
   select g.`name` as 'Group'
-	  from `groups` as g
+	from `groups` as g
     join `groups_students` as gs
       on g.`id` = gs.`group_id`
     join `students` as s
       on s.`id` = gs.`student_id`
 group by `Group`
   having avg(s.`rating`) < (select MIN(subq.`Rating`)
-                                      from (select g.`name` as 'Group',
+                              from (select g.`name` as 'Group',
                                            avg(s.`rating`) as 'Rating'
                                       from `groups` as g
                                       join `groups_students` as gs
@@ -103,7 +103,7 @@ order by `amount`
 -- 10 --
 
 select count(distinct st.`id`) as 'Amount of Students',
-       count(distinct s.`id`) as 'Amount of subjects'
+	   count(distinct s.`id`) as 'Amount of subjects'
   from `departments` as d
   join `groups` as g
     on g.`department_id` = d.`id`
@@ -118,3 +118,4 @@ select count(distinct st.`id`) as 'Amount of Students',
   join `students` as st
     on st.`id` = gs.`student_id`
  where d.`name` = 'Biotechnologies'
+                             
