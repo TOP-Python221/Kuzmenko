@@ -59,7 +59,7 @@ group by `Name group`
       on s.`id` = gs.`student_id`
 group by `Group`
   having avg(s.`rating`) < (select MIN(subq.`Rating`)
-							                from (select g.`name` as 'Group',
+                                      from (select g.`name` as 'Group',
                                            avg(s.`rating`) as 'Rating'
                                       from `groups` as g
                                       join `groups_students` as gs
