@@ -2,34 +2,34 @@ drop database if exists music_collection;
 create database music_collection;
 use music_collection;
 
-create table album (
+create table albums (
           `id` smallint unsigned not null auto_increment primary key,
        `title` varchar(30) not null,
-               constraint `CH_album_title` check (`title` <> ''),
+               constraint `CH_albums_title` check (`title` <> ''),
 `performer_id` smallint unsigned not null,
         `date` date not null,
     `style_id` smallint unsigned not null,
 `publisher_id` smallint unsigned not null
 );
 
-create table style (
+create table styles (
   `id` smallint unsigned not null auto_increment primary key,
 `name` varchar(10) not null,
-       constraint `CH_style_name` check (`name` <> '')
+       constraint `CH_styles_name` check (`name` <> '')
 );
 
-create table performer (
+create table performers (
   `id` smallint unsigned not null auto_increment primary key,
 `name` varchar(30) not null,
-       constraint `CH_performer_name` check (`name` <> '')
+       constraint `CH_performers_name` check (`name` <> '')
 );
 
-create table publisher (
+create table publishers (
      `id` smallint unsigned not null auto_increment primary key,
    `name` varchar(30) not null,
-          constraint `CH_publisher_name` check (`name` <> ''),
+          constraint `CH_publishers_name` check (`name` <> ''),
 `country` varchar(30) not null,
-          constraint `CH_publisher_country` check (`country` <> '')
+          constraint `CH_publishers_country` check (`country` <> '')
 );
 
 create table songs (
@@ -42,24 +42,24 @@ create table songs (
 `performer_id` smallint unsigned not null
 );
 
-alter table album
-    add constraint `FK_album_performer_id`
+alter table albums
+    add constraint `FK_albums_performer_id`
 		foreign key (`performer_id`)
-		references performer (`id`),
-    add constraint `FK_album_style_id`
+		references performers (`id`),
+    add constraint `FK_albums_style_id`
 		foreign key (`style_id`)
-		references style (`id`),
-	add constraint `FK_album_publisher_id`
+		references styles (`id`),
+	add constraint `FK_albums_publisher_id`
 		foreign key (`publisher_id`)
-		references publisher (`id`);
+		references publishers (`id`);
 
 alter table songs
     add constraint `FK_songs_album_id`
 		foreign key (`album_id`)
-		references album (`id`),
+		references albums (`id`),
     add constraint `FK_songs_style_id`
 		foreign key (`style_id`)
-		references style (`id`),
+		references styles (`id`),
 	add constraint `FK_songs_performer_id`
 		foreign key (`performer_id`)
-		references performer (`id`);
+		references performers (`id`);
