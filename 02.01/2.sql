@@ -8,7 +8,7 @@ create table buyers (
               constraint `CH_buyers_name` check (`name` <> ''),
       `email` varchar (30) not null
               constraint `CH_buyers_email` check (`email` <> ''),
-`phonenumber` varchar(30) not null,
+`phonenumber` varchar(30) not null
               constraint `CH_buyers_phonenumber` check (`phonenumber` <> '')
 );
 
@@ -18,8 +18,8 @@ create table sellers (
               constraint `CH_sellers_name` check (`name` <> ''),
       `email` varchar (30) not null
               constraint `CH_sellers_email` check (`email` <> ''),
-`phonenumber` varchar(30) not null,
-			  constraint `CH_sellers_phonenumber` check (`phonenumber` <> '')
+`phonenumber` varchar(30) not null
+              constraint `CH_sellers_phonenumber` check (`phonenumber` <> '')
 );
 
 create table sales_info (
