@@ -4,7 +4,7 @@ use music_collection;
 
 create table album (
           `id` smallint unsigned not null auto_increment primary key,
-       `title` varchar(30) not null
+       `title` varchar(30) not null,
                constraint `CH_album_title` check (`title` <> ''),
 `performer_id` smallint unsigned not null,
         `date` date not null,
@@ -14,27 +14,27 @@ create table album (
 
 create table style (
   `id` smallint unsigned not null auto_increment primary key,
-`name` varchar(10) not null
+`name` varchar(10) not null,
        constraint `CH_style_name` check (`name` <> '')
 );
 
 create table performer (
   `id` smallint unsigned not null auto_increment primary key,
-`name` varchar(30) not null
+`name` varchar(30) not null,
        constraint `CH_performer_name` check (`name` <> '')
 );
 
 create table publisher (
      `id` smallint unsigned not null auto_increment primary key,
-   `name` varchar(30) not null
+   `name` varchar(30) not null,
           constraint `CH_publisher_name` check (`name` <> ''),
-`country` varchar(30) not null
+`country` varchar(30) not null,
           constraint `CH_publisher_country` check (`country` <> '')
 );
 
 create table songs (
           `id` smallint unsigned not null auto_increment primary key,
-        `name` varchar(30) not null
+        `name` varchar(30) not null,
                constraint `CH_songs_name` check (`name` <> ''),
     `album_id` smallint unsigned not null,
         `time` time not null,
